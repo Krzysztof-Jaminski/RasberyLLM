@@ -12,9 +12,9 @@ lub aplikacja wyłącza się bez komunikatu przy próbie uruchomienia modelu.
 ---
 
 > **WAŻNE!**
-> Zwykłe polecenia `dotnet restore`, `dotnet build`, `dotnet run` **nie wystarczą** na Raspberry Pi i wygenerują powyższy problem, jeśli nie zadbasz o zgodność natywnych bibliotek. 
+> Zwykłe polecenia `dotnet restore`, `dotnet build`, `dotnet run` mogą nie wystarczyć na Raspberry Pi i wygenerują powyższy problem
 > 
-> **Na dzień 19.07.2025 uruchamianie przez CLI MaINa (mcli) na Raspberry Pi wciąż nie działa poprawnie.**
+> **Uruchamianie przez CLI MaINa (mcli) na Raspberry Pi wciąż nie działa poprawnie.**
 
 ---
 
