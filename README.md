@@ -14,7 +14,7 @@ lub aplikacja wyłącza się bez komunikatu przy próbie uruchomienia modelu.
 > **WAŻNE!**
 > Zwykłe polecenia `dotnet restore`, `dotnet build`, `dotnet run` wygenerują powyższy problem
 > 
-> **Uruchamianie przez CLI MaINa (mcli) na Raspberry Pi wciąż nie działa poprawnie.**
+> **Uruchamianie przez MCLI nie działa poprawnie.**
 
 ---
 
