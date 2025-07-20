@@ -12,11 +12,15 @@ lub aplikacja wyłącza się bez komunikatu przy próbie uruchomienia modelu.
 ---
 
 > **WAŻNE!**
-> Zwykłe polecenia `dotnet restore`, `dotnet build`, `dotnet run` mogą nie wystarczyć na Raspberry Pi i wygenerują powyższy problem
+> Zwykłe polecenia `dotnet restore`, `dotnet build`, `dotnet run` **nie wystarczą** na Raspberry Pi i wygenerują powyższy problem, jeśli nie zadbasz o zgodność natywnych bibliotek. 
 > 
-> **Uruchamianie przez CLI MaINa (mcli) na Raspberry Pi wciąż nie działa poprawnie.**
+> **Na dzień 19.07.2025 uruchamianie przez CLI MaINa (mcli) na Raspberry Pi wciąż nie działa poprawnie.**
 
 ---
+
+## Szczegółowy opis problemu
+
+Na Windowsie MaIN.NET/LLamaSharp automatycznie pobiera i ładuje natywne biblioteki (np. `llama.dll`) przez NuGet, więc nie trzeba się tym przejmować. Na Raspberry Pi (Linux ARM64) NuGet również umieszcza plik `libllama.so` w katalogu builda (`bin/Debug/net8.0/runtimes/linux-arm64/native/`), ale ta wersja może być niezgodna z wrapperem .NET (MaIN.NET/LLamaSharp)?? W efekcie pojawia się błąd inicjalizacji natywnego API lub aplikacja wyłącza się bez komunikatu.
 
 ## Rozwiązanie
 
@@ -41,24 +45,45 @@ mkdir build
 cd build
 cmake .. -DBUILD_SHARED_LIBS=ON
 cmake --build . --config Release
+
+# Skopiuj plik do katalogu systemowego
+cd bin
+sudo cp libllama.so /usr/lib/
 ```
+
+*(lub do katalogu z aplikacją .NET, np. `~/RasberyLLM/bin/Debug/net8.0/runtimes/linux-arm64/native/`)*
 
 ---
 
-### 2. Skopiuj plik `libllama.so` do systemu
+### 2. Uruchom ponownie aplikację .NET
 
 ```bash
-sudo cp ./bin/libllama.so /usr/lib/
-```
-*(lub do katalogu z aplikacją .NET, np. `~/RasberyLLM/bin/Debug/net8.0/`)*
-
----
-
-### 3. Uruchom ponownie aplikację .NET
-
-```bash
+cd ~/RasberyLLM
 dotnet run --urls "http://0.0.0.0:5000"
 ```
+
+---
+
+## Jak wywołać błąd ponownie (do testów lub debugowania)
+
+1. **Usuń plik `libllama.so` z `/usr/lib/`:**
+   ```bash
+   sudo rm /usr/lib/libllama.so
+   ```
+2. **(Opcjonalnie) Usuń też z katalogu builda aplikacji:**
+   ```bash
+   rm ~/RasberyLLM/bin/Debug/net8.0/runtimes/linux-arm64/native/libllama.so
+   ```
+3. **Uruchom aplikację:**
+   ```bash
+   cd ~/RasberyLLM
+   dotnet run
+   ```
+4. **Efekt:**
+   Powinien pojawić się błąd:
+   ```
+   Error: The type initializer for 'LLama.Native.NativeApi' threw an exception.
+   ```
 
 ---
 
