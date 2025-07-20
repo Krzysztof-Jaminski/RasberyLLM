@@ -77,6 +77,8 @@ dotnet run --urls "http://0.0.0.0:5000"
 3. **Uruchom aplikację:**
    ```bash
    cd ~/RasberyLLM
+   dotnet restore
+   dotnet build
    dotnet run
    ```
 4. **Efekt:**
@@ -98,6 +100,8 @@ dotnet run --urls "http://0.0.0.0:5000"
 1. **Przejdź do katalogu projektu:**
    ```bash
    cd ~/RasberyLLM
+   dotnet restore
+   dotnet build
    ```
 2. **Przygotuj model GGUF i umieść go w odpowiednim katalogu (np. `/home/pi/models/`).**
 3. **Upewnij się, że plik `libllama.so` jest w `/usr/lib` lub w katalogu aplikacji.**
@@ -111,7 +115,3 @@ dotnet run --urls "http://0.0.0.0:5000"
    ```
 
 ---
-
-**Notatka:**
-- Te instrukcje są specjalnie przygotowane dla Raspberry Pi (ARM64, np. Pi 4/5, system 64-bitowy).
-- Jeśli pojawią się inne błędy, sprawdź zgodność wersji bibliotek i modelu. 
