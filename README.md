@@ -17,7 +17,7 @@ lub aplikacja wyłącza się bez komunikatu
 .NET/LLamaSharp na Raspberry Pi (ARM64) ma jednocześnie dwa problemy:
 
 1. **Nie ładuje** `libllama.so` z katalogu aplikacji (`bin/Debug/net8.0/runtimes/linux-arm64/native/` itd.) – wymaga obecności biblioteki w systemowym katalogu `/usr/lib/`.
-2. **Domyślnie pobierana lub budowana biblioteka jest niezgodna** – nie działa nawet po przeniesieniu do `/usr/lib/`. Działa wyłącznie własnoręcznie zbudowana wersja z odpowiedniego commita llama.cpp.
+2. **Domyślnie pobierana lub budowana biblioteka jest niezgodna** – nie działa nawet po przeniesieniu do `/usr/lib/`.
 
 ---
 
