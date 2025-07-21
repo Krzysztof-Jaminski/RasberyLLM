@@ -78,5 +78,4 @@ Lokalizację katalogu modeli można zmienić w pliku `appsettings.json`.
 
 - .NET na Raspberry Pi (ARM64) **ignoruje** nawet poprawną wersję `libllama.so` w katalogach aplikacji (`bin/Debug/net8.0/runtimes/linux-arm64/native/` itd.).
 - Nawet jeśli podmienisz wszystkie lokalne pliki na poprawne, aplikacja nie działa bez obecności biblioteki w `/usr/lib/`.
-- Działa gdy poprawna wersja `libllama.so` jest w `/usr/lib/`.
 - Oryginalne biblioteki pobierane przez `dotnet restore`/`build` są niezgodne z wrapperem
