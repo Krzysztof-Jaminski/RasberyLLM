@@ -63,6 +63,7 @@
     string lastModelName = "";
     List<string> availableModels = new();
     string modelsPath = "";
+    string modelPath = "";
 
     private class ChatMessage
     {
@@ -86,6 +87,7 @@
             if (availableModels.Count > 0)
             {
                 modelName = Path.GetFileNameWithoutExtension(availableModels[0]);
+                modelPath = Path.Combine(modelsPath, availableModels[0]);
             }
         }
     }
@@ -111,8 +113,17 @@
             {
                 try
                 {
-                    // Przekazuj tylko nazwę modelu bez rozszerzenia, jak wcześniej
-                    chatInstance = AIHub.Chat().WithModel(modelName);
+                    // Znajdź pełną ścieżkę do wybranego modelu
+                    var selectedModelFile = availableModels.FirstOrDefault(m => Path.GetFileNameWithoutExtension(m) == modelName);
+                    if (selectedModelFile == null)
+                    {
+                        modelError = "Błąd: Nie znaleziono pliku modelu!";
+                        isLoading = false;
+                        StateHasChanged();
+                        return;
+                    }
+                    modelPath = Path.GetFullPath(Path.Combine(modelsPath, selectedModelFile));
+                    chatInstance = AIHub.Chat().WithCustomModel(modelName, modelPath);
                     lastModelName = modelName;
                 }
                 catch
